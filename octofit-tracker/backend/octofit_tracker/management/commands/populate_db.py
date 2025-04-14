@@ -1,6 +1,6 @@
 import json
 from django.core.management.base import BaseCommand
-from tracker.models import User, Team, Activity, Leaderboard, Workout
+from octofit_tracker.models import User, Team, Activity, Leaderboard, Workout
 
 class Command(BaseCommand):
     help = 'Populate the database with test data'
@@ -9,24 +9,24 @@ class Command(BaseCommand):
         with open('octofit_tracker/test_data.json') as f:
             data = json.load(f)
 
-        # Populate users
+        # Populate Users
         for user_data in data['users']:
-            User.objects.get_or_create(email=user_data['email'], defaults=user_data)
+            User.objects.create(**user_data)
 
-        # Populate teams
+        # Populate Teams
         for team_data in data['teams']:
-            Team.objects.get_or_create(name=team_data['name'], defaults=team_data)
+            Team.objects.create(**team_data)
 
-        # Populate activities
+        # Populate Activities
         for activity_data in data['activities']:
-            Activity.objects.get_or_create(user_id=activity_data['user'], defaults=activity_data)
+            Activity.objects.create(**activity_data)
 
-        # Populate leaderboard
+        # Populate Leaderboard
         for leaderboard_data in data['leaderboard']:
-            Leaderboard.objects.get_or_create(team=leaderboard_data['team'], defaults=leaderboard_data)
+            Leaderboard.objects.create(**leaderboard_data)
 
-        # Populate workouts
+        # Populate Workouts
         for workout_data in data['workouts']:
-            Workout.objects.get_or_create(name=workout_data['name'], defaults=workout_data)
+            Workout.objects.create(**workout_data)
 
-        self.stdout.write(self.style.SUCCESS('Database populated successfully!'))
+        self.stdout.write(self.style.SUCCESS('Database populated with test data.'))
