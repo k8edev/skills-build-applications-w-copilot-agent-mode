@@ -4,24 +4,24 @@ from .models import User, Team, Activity, Leaderboard, Workout
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['id', 'username', 'email', 'created_at']
 
 class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
-        fields = '__all__'
+        fields = ['id', 'name', 'members', 'created_at']
 
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        fields = '__all__'
+        fields = ['id', 'user', 'activity_type', 'duration', 'date']
 
 class LeaderboardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Leaderboard
-        fields = '__all__'
+        fields = ['id', 'team', 'points']
 
 class WorkoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workout
-        fields = '__all__'
+        fields = ['id', 'name', 'description', 'duration']

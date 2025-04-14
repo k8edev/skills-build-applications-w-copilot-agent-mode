@@ -4,14 +4,15 @@ class User(models.Model):
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=100)
     age = models.IntegerField()
-    team = models.CharField(max_length=100)
+    team_name = models.CharField(max_length=100)  # Removed related_name
 
 class Team(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    members = models.ArrayField(model_container=User)
+    member_list = models.JSONField()  # Renamed from 'members' to 'member_list' to avoid clash
+    created_at = models.DateTimeField(auto_now_add=True)
 
 class Activity(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='activities')  # Added related_name here
     activity = models.CharField(max_length=100)
     duration = models.IntegerField()
 

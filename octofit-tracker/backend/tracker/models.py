@@ -4,11 +4,11 @@ class User(models.Model):
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=100)
     age = models.IntegerField()
-    team = models.CharField(max_length=100)
+    team_name = models.CharField(max_length=100)  # Renamed to avoid conflict
 
 class Team(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    members = models.ManyToManyField(User)
+    member_list = models.ManyToManyField(User)  # Renamed to avoid conflict
 
 class Activity(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
